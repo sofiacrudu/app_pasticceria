@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Accedi{% endblock %}
+{% block pagebody %}
+<style>
+
+.button {
+  background-color: #4aa61c;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #229926;
+  color: white;
+}
+</style>
+<div class="container mt-3">
+    <h2>Login</h2>
+    {% if error %}
+    <p class=error><strong>Errore:</strong> {{ error }}
+    {% elif err_cred%}
+    <p class=error><strong>Errore:</strong> {{ err_cred }}
+    {% elif err_pwd %}
+    <p class=error><strong>Errore:</strong> {{ err_pwd }}
+    {% endif %}
+    <form action="/login" method="POST">
+    <div class="mb-2 mt-3 w-25">
+      <label class="a" for="email">Email:</label>
+      <input type="email" placeholder="Inserisci email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+    </div>
+    <div class="mb-2 w-25">
+      <label for="pass">Password:</label>
+      <input type="pass" placeholder="Inserisci password" class="form-control" id="pass" placeholder="Enter password" name="pass" required>
+    </div>
+    <button type="submit" class="btn btn-success">Login</button>
+  </form>
+</div>
+
+
+{% endblock %}

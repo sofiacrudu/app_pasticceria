@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+{% block pagebody %}
+<style>
+table {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img {
+  width: 300px;
+  height: 300px;
+}
+.container {
+  position: relative;
+  width: 330px;
+  height: 300px;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+}
+
+.container:hover .overlay {
+  bottom: 0;
+  height: 100%;
+}
+#toronto-content {
+  color: #FFF;
+  white-space: normal;
+  overflow:overlay;
+}
+</style>
+<div id="board"></div>
+<script type="text/javascript">
+var data = JSON.parse('{{ rec| tojson | safe }}');
+var lista_dolci = {{ lista_dolci | tojson | safe }};
+var npaste = {{ npaste | tojson | safe }};
+
+function generateTable() {
+  var brd = document.getElementById("board");
+  var tbl = document.createElement("table");
+  tbl.setAttribute('cellpadding', '0');
+  tbl.setAttribute('cellspacing', '0');
+  tbl.setAttribute('width', '100%');
+  var tblBody = document.createElement("tbody");
+
+  var maxCol = 3;
+  var maxRow = 3;
+  var maxRow = Math.floor(npaste/maxCol);
+  var remainder = npaste/maxCol;
+  if (remainder != 0){
+    maxRow+=1
+  }
+
+  var imgs = [
+            '<img src="https://www.cucchiaio.it/content/cucchiaio/it/ricette/2017/07/millefoglie/jcr:content/imagePreview.img10.jpg/1500026730580.jpg">',
+            '<img src="https://blog.cookaround.com/cucinareecomeamare/wp-content/uploads/2019/08/torta-frolla-ripiena-di-crema-e-mandorle.jpg">',
+            '<img src="https://static.cookist.it/wp-content/uploads/sites/21/2021/04/Cheesecake-senza-gelatina-1200x900.jpg">',
+            '<img src="https://sp-ao.shortpixel.ai/client/to_auto,q_glossy,ret_img,w_1080,h_768/https://www.incucinaperdivertimento.it/wp-content/uploads/2018/03/dolcetti-veloci-al-limone-5-1080x768.gif">',
+            '<img src="https://dolcipassioni.net/2017/wp-content/uploads/2017/11/azzi500-607x435.jpg">',
+            '<img src="https://blog.giallozafferano.it/dulcisinforno/wp-content/uploads/2020/09/Cestini-di-frutta-9409.jpg">',
+            '<img src="https://blog.giallozafferano.it/cucinaatintaunita/wp-content/uploads/2018/10/IMG-20180926-WA0004.jpg">',
+            '<img src="https://images.fidhouse.com/fidelitynews/wp-content/uploads/sites/6/2019/01/1548763695_188369692f75775eeb712650a08796b52bafdb77-1548763511.jpg?w=580">',
+            '<img src="https://www.petitchef.it/imgupl/recipe/pasticcini-di-riso-al-profumo-di-limone--lg-161369p241785.jpg">',
+            '<img src="https://www.hovogliadidolce.it/wp-content/uploads/2020/02/crostata-morbida-red-velvet-ricetta-facile-Ho-Voglia-di-Dolce-720x480.png">'];
+
+  for (var x = 0; x < maxRow; x++) {
+    var row = document.createElement("tr");
+
+    for (var y = 0; y < maxCol; y++) {
+      var n = x*maxCol+y;
+      if (n==npaste){ break; }
+      var cell = document.createElement("td");
+      var container = document.createElement("div");
+      var overlay = document.createElement("div");
+      overlay.setAttribute("id", "toronto-content");
+      container.className = "container";
+      overlay.className = "overlay";
+      if (lista_dolci.length!=0){
+        var len = lista_dolci[x*maxCol+y].length;
+        var text = '';
+        for (var i=0; i<len; i++){
+            if (lista_dolci[x*maxCol+y][i][0].length == 0) break;
+            text += '<p>'+lista_dolci[x*maxCol+y][i][0]+': '+lista_dolci[x*maxCol+y][i][1]+' '+lista_dolci[x*maxCol+y][i][2]+' '
+            +lista_dolci[x*maxCol+y][i][3]+'</p>'
+        }
+        overlay.innerHTML = text;
+      }
+      var nome = '<h3><strong>'+data[x*maxCol+y][0]+'</strong></h3>'
+      var prezzo = '<p>Prezzo: '+data[x*maxCol+y][1]+' euro</p>'
+      var numero = '<p>Disponibilità: '+data[x*maxCol+y][2]+'</p><br/>'
+      cell.innerHTML = nome+prezzo+numero;
+      container.innerHTML = imgs[x*maxCol+y];
+      container.appendChild(overlay);
+      cell.appendChild(container);
+      row.appendChild(cell);
+    }
+
+    tbl.appendChild(row);
+  }
+
+  brd.appendChild(tbl);
+}
+
+  generateTable()
+</script>
+
+{% endblock %}
+
+
+
+

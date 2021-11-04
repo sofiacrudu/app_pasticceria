@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+{% block pagebody %}
+<style>
+
+</style>
+
+<div class="container-fluid p-1 text-white text-center" style="background-color: #e8cdac;">
+    <h2><strong>Gestione paste</strong></h2>
+</div>
+{% for message in get_flashed_messages() %}
+<div class="alert alert-info">
+    {{message}}
+</div>
+{% endfor %}
+<div class="container mt-3">
+    <form action="/inserisci_dolce" method="POST">
+        <h3>Inserisci un nuovo dolce</h3>
+        <div class="row mb-2">
+            <label for="dolce" class="col-sm-2 col-form-label"><b>Nome:</b></label>
+            <div class="col-sm-3">
+                <input type="text" placeholder="Inserire il nome" id="dolce" name="dolce" required>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label for="prezzo" class="col-sm-2 col-form-label"><b>Prezzo:</b></label>
+            <div class="col-sm-3">
+                <input type="text" placeholder="Inserire il prezzo" id="prezzo" name="prezzo" required>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label for="numero" class="col-sm-2 col-form-label"><b>Disponibilità:</b></label>
+            <div class="col-sm-3">
+                <input type="text" placeholder="Inserire la disponibilità" id="numero" name="numero" required><br><br>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" name="ins" value="ins" id="ins"><strong>Conferma</strong></button>
+    </form>
+</div>
+<div class="container mt-3">
+    <form action="/modifica_dolce" method="POST">
+        <h3>Modifica la disponibilità di un dolce</h3>
+        <div class="row mb-2">
+            <label for="nome" class="col-sm-2 col-form-label"><b>Nome:</b></label>
+            <div class="col-sm-9">
+                <select class="col-sm-3 h-75" id="nome" name="nome" required>
+                    {% for row in dolci %}
+                    <option value="{{ row[0] }}">{{row[0]}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label for="numero" class="col-sm-2 col-form-label"><b>Cambia la disponibilità: </b></label>
+            <div class="col-sm-3">
+                <input value="" type="number" name="numero" min="0" >
+            </div>
+        </div>
+        <div class="row mb-2">
+            <label for="prezzo" class="col-sm-2 col-form-label"><b>Cambia il prezzo:</b></label>
+            <div class="col-sm-3">
+                <input value="" type="number" name="prezzo" min="0" >
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" name="mod" value="mod" id="mod"><strong>Conferma</strong></button>
+    </form>
+</div>
+
+{% endblock %}
+
+
