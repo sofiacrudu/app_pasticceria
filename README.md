@@ -23,10 +23,10 @@ Once in the interactive PostgreSQL terminal, write the commands listed below:
 *	GRANT ALL PRIVILEGES ON DATABASE mydb TO sofia;
 
 To delete the newly created database execute:
-*	DROP DATABASE safety1st_db;
+*	DROP DATABASE mydb;
 
 To delete the user execute:
-*	DROP USER amigaclass523;
+*	DROP USER sofia;
 
 Running the app:
 * export Flask_APP=app.py
