@@ -10,25 +10,25 @@ A simple application with a display case of sweets in Python (flask).
 * postgresql;
 * psycopg2.
 
-## DBMS creation
+### DBMS creation
 We use the following shell commands:
 *	sudo su – postgres
 *	psql
 
-Once in the interactive PostgreSQL terminal, write the commands listed below:
+#### Once in the interactive PostgreSQL terminal, write the commands listed below:
 *	ALTER USER postgres PASSWORD ‘test123’;
 *	CREATE USER sofia WITH PASSWORD ‘cioccolato98’;
 *	ALTER USER sofia WITH SUPERUSER;
 *	CREATE DATABASE mydb;
 *	GRANT ALL PRIVILEGES ON DATABASE mydb TO sofia;
 
-To delete the newly created database execute:
+#### To delete the newly created database execute:
 *	DROP DATABASE mydb;
 
-To delete the user execute:
+#### To delete the user execute:
 *	DROP USER sofia;
 
-Running the app:
+#### Running the app:
 * export Flask_APP=app.py
 * flask run
 
