@@ -49,13 +49,12 @@ var npaste = {{ npaste | tojson | safe }};
 function generateTable() {
   var brd = document.getElementById("board");
   var tbl = document.createElement("table");
-  tbl.setAttribute('cellpadding', '0');
+  tbl.setAttribute('cellpadding', '15');
   tbl.setAttribute('cellspacing', '0');
   tbl.setAttribute('width', '100%');
   var tblBody = document.createElement("tbody");
 
   var maxCol = 3;
-  var maxRow = 3;
   var maxRow = Math.floor(npaste/maxCol);
   var remainder = npaste/maxCol;
   if (remainder != 0){
