@@ -1,0 +1,58 @@
+<html>
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %} - Pasticceria Da Sofia </title>
+    {% endblock %}
+</head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Zen Antique Soft);
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+@import url(https://fonts.googleapis.com/css?family=Lora);
+@import url(https://fonts.googleapis.com/css?family=Noto+Serif);
+@import url(https://fonts.googleapis.com/css?family=Arvo);
+
+p, label, input, button, a, option, select{
+  font-family: Georgia, serif;
+}
+
+h1, h2, h3, h4, h5{
+  font-family: 'Zen Antique Soft';
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  color: black;
+}
+</style>
+<div class="container-fluid p-2 text-white text-center" style="background-color: #AFC2BE;">
+    <h1>Pasticceria Da Sofia</h1>
+</div>
+<div class="container-fluid p-1" style="background-color: #AFC2BE;">
+    {% if current_user.is_authenticated %}
+    <a href="/logout">Log Out</a>
+    {% else %}
+    <a href="/accedi">Accedi</a>
+    {% endif %}
+</div>
+<div class="container-fluid p-3 text-white text-center" style="background-color: #fff;">
+
+</div>
+
+
+<body>
+  {% block pagebody %}
+  {% endblock %}
+</body>
+<footer>
+ <!-- Copyright -->
+  <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2);">
+      <p>© 2021 Pasticceria Da Sofia. Tutti i diritti riservati.</p>
+  </div>
+  <!-- Copyright -->
+</footer>
+</html>
