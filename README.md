@@ -1,5 +1,6 @@
 # app_pasticceria
-A simple application with a display case of sweets in Python (flask).
+A simple application with a display case of sweets in Python (Flask framework).
+DBMS used: PostgreSQL.
 
 ## Commands for execution
 
