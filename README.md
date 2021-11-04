@@ -33,6 +33,7 @@ Running the app:
 * flask run
 
 ## Home page (part 1)
+The list with ingredients is visible through overlay.
 ![alt text](https://github.com/sofiacrudu/app_pasticceria/blob/main/images/home1.png?raw=true)
 
 ## Home page (part 2)
