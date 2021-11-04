@@ -1,5 +1,5 @@
 # app_pasticceria
-A simple application with a display case of sweets in Python (Flask framework).
+A simple application with a display case of sweets in Python (Flask framework).<br/>
 DBMS used: PostgreSQL.
 
 ## Commands for execution
@@ -34,7 +34,7 @@ We use the following shell commands:
 * flask run
 
 ## Home page (part 1)
-The list with ingredients is visible through overlay.
+The list with ingredients is visible through overlay.<br/>
 The default sale date is the current one at the first launch of the application.
 ![alt text](https://github.com/sofiacrudu/app_pasticceria/blob/main/images/home1.png?raw=true)
 
