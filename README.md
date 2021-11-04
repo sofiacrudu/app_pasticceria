@@ -34,6 +34,7 @@ Running the app:
 
 ## Home page (part 1)
 The list with ingredients is visible through overlay.
+The default sale date is the current one at the first launch of the application.
 ![alt text](https://github.com/sofiacrudu/app_pasticceria/blob/main/images/home1.png?raw=true)
 
 ## Home page (part 2)
