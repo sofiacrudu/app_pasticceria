@@ -11,6 +11,7 @@ from werkzeug.security import check_password_hash
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://sofia:cioccolato98@localhost:5432/mydb'
 app.secret_key='omega596'
+get_method = False
 insert_db()
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -42,6 +43,7 @@ def user_by_email(user_email):
 
 @app.route('/', methods=['GET'])
 def home():
+    global get_method
     conn = engine.connect()
     d = dolci.alias()
     g = gestione.alias()
@@ -56,24 +58,28 @@ def home():
     rs2 = conn.execute(s2)
     r = rs2.fetchone()
     n = int(r['num_paste'])
-    for i in range(n):
-        data = datetime.datetime(rec[i]['data'].year, rec[i]['data'].month, rec[i]['data'].day)
-        data_odierna = datetime.datetime.today()
-        id_d = int(rec[i]['id_d'])
-        prezzo = float(rec[i]['prezzo'])
-        numero = int(rec[i]['numero'])
-        if (data_odierna - data).days == 1:
-            prezzo -= (prezzo * 20) / 100
-        elif (data_odierna - data).days == 2:
-            prezzo -= (prezzo * 80) / 100
-        elif (data_odierna - data).days >= 3 and (data_odierna - data).days != 0:
-            numero -= numero
-        u1 = dolci.update().values(prezzo=prezzo). \
-            where(dolci.c.id_d == id_d)
-        conn.execute(u1)
-        u2 = gestione.update().values(numero=numero). \
-            where(gestione.c.cod_dolce == id_d)
-        conn.execute(u2)
+    if get_method == False:
+        for i in range(n):
+            data = datetime.datetime(rec[i]['data'].year, rec[i]['data'].month, rec[i]['data'].day)
+            data_odierna = datetime.datetime.today()
+            id_d = int(rec[i]['id_d'])
+            prezzo = float(rec[i]['prezzo'])
+            numero = int(rec[i]['numero'])
+
+            if (data_odierna - data).days == 1:
+                prezzo -= (prezzo * 20) / 100
+            elif (data_odierna - data).days == 2:
+                prezzo -= (prezzo * 80) / 100
+            elif (data_odierna - data).days >= 3 and (data_odierna - data).days != 0:
+                numero -= numero
+            prezzo = round(prezzo, 2)
+            u1 = dolci.update().values(prezzo=prezzo). \
+                where(dolci.c.id_d == id_d)
+            conn.execute(u1)
+            u2 = gestione.update().values(numero=numero). \
+                where(gestione.c.cod_dolce == id_d)
+            conn.execute(u2)
+            get_method = True
     s = select([d.c.nome, d.c.prezzo, g.c.numero]).\
         where(d.c.id_d == g.c.cod_dolce). \
         order_by(d.c.id_d)
@@ -126,7 +132,6 @@ def home():
             lista_ing.append([row['ingrediente'], row['quantita'], row['unita'], "(" + row['componente'] + ")"])
         lista_dolci_ing.append(lista_ing)
     return render_template('home.html', rec=final, lista_dolci=lista_dolci_ing, npaste=n)
-
 @app.route('/accedi', methods=['GET'])
 def accedi():
     if current_user.is_authenticated:
