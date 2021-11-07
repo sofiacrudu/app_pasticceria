@@ -41,11 +41,11 @@ img {
 }
 </style>
 <div id="board"></div>
-<script type="text/javascript">
+
+<script>
 var data = JSON.parse('{{ rec| tojson | safe }}');
 var lista_dolci = {{ lista_dolci | tojson | safe }};
 var npaste = {{ npaste | tojson | safe }};
-
 function generateTable() {
   var brd = document.getElementById("board");
   var tbl = document.createElement("table");
@@ -99,7 +99,7 @@ function generateTable() {
       var prezzo = '<p>Prezzo: '+data[x*maxCol+y][1]+' euro</p>'
       var numero = '<p>Disponibilità: '+data[x*maxCol+y][2]+'</p><br/>'
       cell.innerHTML = nome+prezzo+numero;
-      container.innerHTML = imgs[x*maxCol+y];
+      container.innerHTML = imgs[x*maxCol+y]+'<br>';
       container.appendChild(overlay);
       cell.appendChild(container);
       row.appendChild(cell);
@@ -107,11 +107,9 @@ function generateTable() {
 
     tbl.appendChild(row);
   }
-
-  brd.appendChild(tbl);
+   brd.appendChild(tbl);
 }
-
-  generateTable()
+generateTable()
 </script>
 
 {% endblock %}

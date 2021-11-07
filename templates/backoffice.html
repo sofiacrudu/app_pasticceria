@@ -15,7 +15,7 @@
 </div>
 {% endfor %}
 <div class="container mt-3">
-    <form action="/inserisci_dolce" method="POST">
+    <form id="ins_dolce" action="/inserisci_dolce" method="POST" >
         <h3>Inserisci un nuovo dolce</h3>
         <div class="row mb-2">
             <label for="dolce" class="col-sm-2 col-form-label"><b>Nome:</b></label>
@@ -35,9 +35,21 @@
                 <input type="text" placeholder="Inserire la disponibilità" id="numero" name="numero" required><br><br>
             </div>
         </div>
-
-        <button type="submit" class="btn btn-success" name="ins" value="ins" id="ins"><strong>Conferma</strong></button>
+        <h3>Inserisci gli ingredienti</h3>
+        <div class="form-group">
+            <a id="add-field" class="link-primary" href="#">Aggungi ingrediente</a>&nbsp;&nbsp;
+            <a id="remove-field" class="link-warning" href="#">Rimuovi ingrediente</a>
+        </div>
+        <div class="form-group mb-3">
+            <input  name="ingrediente" placeholder="Inserire l'ingrediente" type="text" >
+            <input  name="quantita" placeholder="Inserire la quantità" type="text" >
+            <input  name="misura" placeholder="Inserire l'unità di misura" type="text" >
+            <input  name="componente" placeholder="Inserire la componente" type="text" >
+        </div>
+        <div id="more"></div>
+        <input type="submit" class="btn btn-success" name="ins" style="font-weight: bold;" value="Conferma" id="ins"/>
     </form>
+
 </div>
 <div class="container mt-3">
     <form action="/modifica_dolce" method="POST">
@@ -53,20 +65,22 @@
             </div>
         </div>
         <div class="row mb-2">
-            <label for="numero" class="col-sm-2 col-form-label"><b>Cambia la disponibilità: </b></label>
+            <label for="prezzo2" class="col-sm-2 col-form-label"><b>Cambia il prezzo:</b></label>
             <div class="col-sm-3">
-                <input value="" type="number" name="numero" min="0" >
+                <input value="" type="text" name="prezzo" id="prezzo2" min="0" >
             </div>
         </div>
         <div class="row mb-2">
-            <label for="prezzo" class="col-sm-2 col-form-label"><b>Cambia il prezzo:</b></label>
+            <label for="numero2" class="col-sm-2 col-form-label"><b>Cambia la disponibilità: </b></label>
             <div class="col-sm-3">
-                <input value="" type="number" name="prezzo" min="0" >
+                <input value="" type="text" name="numero" id="numero2" min="0" >
             </div>
         </div>
         <button type="submit" class="btn btn-success" name="mod" value="mod" id="mod"><strong>Conferma</strong></button>
     </form>
 </div>
+
+<script src="{{ url_for('static', filename='backoffice.js') }}"></script>
 
 {% endblock %}
 
